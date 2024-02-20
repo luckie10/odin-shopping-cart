@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { Layout } from "@/componenets/Layout";
+import { Layout } from "@/components/Layout";
 import { Homepage } from "@/features/homepage";
 import { Store, Cart } from "@/features/store";
 
@@ -12,7 +12,7 @@ export const AppRoutes = () => {
       children: [
         { path: "/", element: <Homepage /> },
         { path: "/store", element: <Store /> },
-        { path: "/store/cart", lement: <Cart /> },
+        { path: "/store/cart", element: <Cart /> },
       ],
     },
   ]);
