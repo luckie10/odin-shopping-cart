@@ -1,0 +1,42 @@
+.cardContainer {
+  border: 1px solid #09f1f6;
+  width: 300px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.productImage {
+  margin: auto;
+  width: 250px;
+}
+
+.productName {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.cartButtonsContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.quantityButtonsContainer {
+  display: flex;
+}
+
+.quantityInput {
+  text-align: center;
+  width: 40px;
+}
+
+.cartButton {
+  background: none;
+}
+
+.addCartButton {
+  composes: cartButton;
+}
