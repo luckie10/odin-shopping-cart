@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-export const Navigation = () => {
+
+export const NavBar = () => {
   return (
     <div>
       <Link to="..">Home</Link>
