@@ -1,7 +1,8 @@
-import styles from "./ProductCard.module.css";
+import { useState } from "react";
 import { Icon } from "@mdi/react";
 import { mdiCartVariant, mdiPlus, mdiMinus } from "@mdi/js";
 
+import styles from "./ProductCard.module.css";
 export const ProductCard = ({ product }) => {
   return (
     <div className={styles.cardContainer}>
@@ -22,7 +23,7 @@ export const ProductCard = ({ product }) => {
           </button>
         </div>
         <button className={styles.addCartButton}>
-          <Icon path={mdiCartVariant} size={1} />
+          <Icon path={mdiCartVariant} size={1} color="rgb(18 18 18)" />
         </button>
       </div>
     </div>
