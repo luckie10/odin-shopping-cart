@@ -1,9 +1,12 @@
 import { AppRoutes } from "@/routes";
+import { Providers } from "@/providers";
 
 const App = () => {
   return (
     <>
-      <AppRoutes />
+      <Providers>
+        <AppRoutes />
+      </Providers>
     </>
   );
 };
