@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Icon } from "@mdi/react";
 import { mdiCartVariant, mdiPlus, mdiMinus } from "@mdi/js";
 
+import { useDispatchCart } from "@/providers/CartProvider/CartContext";
+
 import styles from "./ProductCard.module.css";
 
 export const ProductCard = ({ product }) => {
@@ -21,6 +23,16 @@ export const ProductCard = ({ product }) => {
     if (quantity === 0) return;
 
     setQuantity(quantity - 1);
+  };
+
+  const addToCart = (dispatch, id, quantity) => () => {
+    if (quantity <= 0) return;
+
+    dispatch({
+      type: "add",
+      id,
+      quantity,
+    });
   };
 
   return (
@@ -47,7 +59,10 @@ export const ProductCard = ({ product }) => {
             <Icon path={mdiPlus} size={1} />
           </button>
         </div>
-        <button className={styles.addCartButton}>
+        <button
+          className={styles.addCartButton}
+          onClick={addToCart(useDispatchCart(), product.id, quantity)}
+        >
           <Icon path={mdiCartVariant} size={1} color="rgb(18 18 18)" />
         </button>
       </div>
