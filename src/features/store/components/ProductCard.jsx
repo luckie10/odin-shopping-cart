@@ -1,38 +1,92 @@
-import { useState } from "react";
 import { Icon } from "@mdi/react";
-import { mdiCartVariant, mdiPlus, mdiMinus } from "@mdi/js";
+import { mdiPlus, mdiMinus } from "@mdi/js";
 
-import { useDispatchCart } from "@/providers/CartProvider/CartContext";
+import {
+  getCartProduct,
+  useCart,
+  useDispatchCart,
+} from "@/providers/CartProvider/CartContext";
 
 import styles from "./ProductCard.module.css";
 
 export const ProductCard = ({ product }) => {
-  const [quantity, setQuantity] = useState(0);
+  const cart = useCart();
+  const cartDispatch = useDispatchCart();
+  const cartProduct = getCartProduct(cart, product.id);
 
-  const onInputChange = (setStateFunction) => {
-    return (event) => {
-      setStateFunction(event.target.value);
-    };
+  const handleInputChange = (dispatch, id) => {
+    return (event) => dispatchQuantityChange(dispatch, id, event.target.value);
   };
 
-  const incrementQuantity = () => {
-    setQuantity(quantity + 1);
+  const handleQuantityChange = (dispatch, id, quantity) => () => {
+    dispatchQuantityChange(dispatch, id, quantity);
   };
 
-  const decrementQuantity = () => {
-    if (quantity === 0) return;
-
-    setQuantity(quantity - 1);
+  const dispatchQuantityChange = (dispatch, id, quantity) => {
+    if (quantity <= 0)
+      dispatch({
+        type: "delete",
+        id,
+      });
+    else
+      dispatch({
+        type: "editQuantity",
+        id,
+        quantity,
+      });
   };
 
-  const addToCart = (dispatch, id, quantity) => () => {
-    if (quantity <= 0) return;
-
+  const addToCart = (dispatch, id) => () => {
     dispatch({
       type: "add",
       id,
-      quantity,
+      quantity: 1,
     });
+  };
+
+  const AddToCartButton = () => {
+    return (
+      <button
+        className={styles.addCartButton}
+        onClick={addToCart(cartDispatch, product.id)}
+      >
+        Add to Cart
+      </button>
+    );
+  };
+
+  const QuantityButtons = () => {
+    return (
+      <>
+        <button
+          className={styles.cartButton}
+          onClick={handleQuantityChange(
+            cartDispatch,
+            product.id,
+            cartProduct.quantity - 1,
+          )}
+        >
+          <Icon path={mdiMinus} size={1} />
+        </button>
+        <input
+          type="text"
+          inputMode="numeric"
+          className={styles.quantityInput}
+          value={cartProduct.quantity}
+          onChange={handleInputChange(cartDispatch, product.id)}
+        />
+        <button
+          className={styles.cartButton}
+          onClick={handleQuantityChange(
+            cartDispatch,
+            product.id,
+            cartProduct.quantity + 1,
+          )}
+        >
+          <Icon path={mdiPlus} size={1} />
+        </button>
+      </>
+    );
   };
 
   return (
@@ -45,26 +99,8 @@ export const ProductCard = ({ product }) => {
       <h1 className={styles.productName}>{product.title}</h1>
       <div className={styles.cartButtonsContainer}>
         <div className={styles.quantityButtonsContainer}>
-          <button className={styles.cartButton} onClick={decrementQuantity}>
-            <Icon path={mdiMinus} size={1} />
-          </button>
-          <input
-            type="text"
-            inputMode="numeric"
-            className={styles.quantityInput}
-            value={quantity}
-            onChange={onInputChange(setQuantity)}
-          />
-          <button className={styles.cartButton} onClick={incrementQuantity}>
-            <Icon path={mdiPlus} size={1} />
-          </button>
+          {cartProduct ? <QuantityButtons /> : <AddToCartButton />}
         </div>
-        <button
-          className={styles.addCartButton}
-          onClick={addToCart(useDispatchCart(), product.id, quantity)}
-        >
-          <Icon path={mdiCartVariant} size={1} color="rgb(18 18 18)" />
-        </button>
       </div>
     </div>
   );

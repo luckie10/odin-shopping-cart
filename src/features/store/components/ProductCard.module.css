@@ -51,6 +51,8 @@
 .addCartButton {
   background-color: rgb(var(--color-primary));
   border: 1px solid transparent;
+  color: rgb(var(--color-surface));
+  font-weight: 600;
 }
 .addCartButton:hover {
   box-shadow: inset 0 0 0 2em rgb(var(--color-overlay) / 4%);
