@@ -1,10 +1,10 @@
-import { useProducts } from "../api/products";
 import { ProductCard } from "../components/ProductCard";
 
 import styles from "./Store.module.css";
+import { useProductsContext } from "@/providers/ProductProvider/ProductContext";
 
 export const Store = () => {
-  const { products, error, loading } = useProducts();
+  const { products, error, loading } = useProductsContext();
 
   if (loading) return "Loading...";
   if (error) console.error(error);
