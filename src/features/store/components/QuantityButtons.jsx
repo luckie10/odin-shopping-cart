@@ -31,7 +31,7 @@ export const QuantityButtons = ({ quantity, id }) => {
   };
 
   return (
-    <>
+    <div className={styles.quantityButtonsContainer}>
       <button
         className={styles.cartButton}
         onClick={handleQuantityChange(id, quantity - 1)}
@@ -51,6 +51,6 @@ export const QuantityButtons = ({ quantity, id }) => {
       >
         <Icon path={mdiPlus} size={1} />
       </button>
-    </>
+    </div>
   );
 };

@@ -42,13 +42,11 @@ export const ProductCard = ({ product }) => {
       />
       <h1 className={styles.productName}>{product.title}</h1>
       <div className={styles.cartButtonsContainer}>
-        <div className={styles.quantityButtonsContainer}>
-          {cartProduct ? (
-            <QuantityButtons quantity={cartProduct.quantity} id={product.id} />
-          ) : (
-            <AddToCartButton />
-          )}
-        </div>
+        {cartProduct ? (
+          <QuantityButtons quantity={cartProduct.quantity} id={product.id} />
+        ) : (
+          <AddToCartButton />
+        )}
       </div>
     </div>
   );
