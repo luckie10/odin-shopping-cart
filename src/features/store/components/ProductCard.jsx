@@ -11,60 +11,38 @@ import styles from "./ProductCard.module.css";
 
 export const ProductCard = ({ product }) => {
   const cart = useCart();
-  const cartDispatch = useDispatchCart();
   const cartProduct = getCartProduct(cart, product.id);
 
-  const handleInputChange = (dispatch, id) => {
-    return (event) => dispatchQuantityChange(dispatch, id, event.target.value);
-  };
-
-  const handleQuantityChange = (dispatch, id, quantity) => () => {
-    dispatchQuantityChange(dispatch, id, quantity);
-  };
-
-  const dispatchQuantityChange = (dispatch, id, quantity) => {
-    if (quantity <= 0)
-      dispatch({
-        type: "delete",
-        id,
-      });
-    else
-      dispatch({
-        type: "editQuantity",
-        id,
-        quantity,
-      });
-  };
-
-  const addToCart = (dispatch, id) => () => {
-    dispatch({
-      type: "add",
-      id,
-      quantity: 1,
-    });
-  };
-
-  const AddToCartButton = () => {
-    return (
-      <button
-        className={styles.addCartButton}
-        onClick={addToCart(cartDispatch, product.id)}
-      >
-        Add to Cart
-      </button>
-    );
-  };
-
   const QuantityButtons = () => {
+    const cartDispatch = useDispatchCart();
+
+    const handleInputChange = (id) => {
+      return (event) => dispatchQuantityChange(id, event.target.value);
+    };
+
+    const handleQuantityChange = (id, quantity) => () => {
+      dispatchQuantityChange(id, quantity);
+    };
+
+    const dispatchQuantityChange = (id, quantity) => {
+      if (quantity <= 0)
+        cartDispatch({
+          type: "delete",
+          id,
+        });
+      else
+        cartDispatch({
+          type: "editQuantity",
+          id,
+          quantity,
+        });
+    };
+
     return (
       <>
         <button
           className={styles.cartButton}
-          onClick={handleQuantityChange(
-            cartDispatch,
-            product.id,
-            cartProduct.quantity - 1,
-          )}
+          onClick={handleQuantityChange(product.id, cartProduct.quantity - 1)}
         >
           <Icon path={mdiMinus} size={1} />
         </button>
@@ -73,19 +51,36 @@ export const ProductCard = ({ product }) => {
           inputMode="numeric"
           className={styles.quantityInput}
           value={cartProduct.quantity}
-          onChange={handleInputChange(cartDispatch, product.id)}
+          onChange={handleInputChange(product.id)}
         />
         <button
           className={styles.cartButton}
-          onClick={handleQuantityChange(
-            cartDispatch,
-            product.id,
-            cartProduct.quantity + 1,
-          )}
+          onClick={handleQuantityChange(product.id, cartProduct.quantity + 1)}
         >
           <Icon path={mdiPlus} size={1} />
         </button>
       </>
+    );
+  };
+
+  const AddToCartButton = () => {
+    const cartDispatch = useDispatchCart();
+
+    const addToCart = (dispatch, id) => () => {
+      dispatch({
+        type: "add",
+        id,
+        quantity: 1,
+      });
+    };
+
+    return (
+      <button
+        className={styles.addCartButton}
+        onClick={addToCart(cartDispatch, product.id)}
+      >
+        Add to Cart
+      </button>
     );
   };
 
