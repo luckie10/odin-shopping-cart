@@ -44,7 +44,7 @@ export const ProductCard = ({ product }) => {
       <div className={styles.cartButtonsContainer}>
         <div className={styles.quantityButtonsContainer}>
           {cartProduct ? (
-            <QuantityButtons cartProduct={cartProduct} id={product.id} />
+            <QuantityButtons quantity={cartProduct.quantity} id={product.id} />
           ) : (
             <AddToCartButton />
           )}

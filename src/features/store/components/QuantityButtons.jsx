@@ -5,7 +5,7 @@ import { useDispatchCart } from "@/providers/CartProvider/CartContext";
 
 import styles from "./QuantityButtons.module.css";
 
-export const QuantityButtons = ({ cartProduct, id }) => {
+export const QuantityButtons = ({ quantity, id }) => {
   const cartDispatch = useDispatchCart();
 
   const handleInputChange = (id) => {
@@ -34,7 +34,7 @@ export const QuantityButtons = ({ cartProduct, id }) => {
     <>
       <button
         className={styles.cartButton}
-        onClick={handleQuantityChange(id, cartProduct.quantity - 1)}
+        onClick={handleQuantityChange(id, quantity - 1)}
       >
         <Icon path={mdiMinus} size={1} />
       </button>
@@ -42,12 +42,12 @@ export const QuantityButtons = ({ cartProduct, id }) => {
         type="text"
         inputMode="numeric"
         className={styles.quantityInput}
-        value={cartProduct.quantity}
+        value={quantity}
         onChange={handleInputChange(id)}
       />
       <button
         className={styles.cartButton}
-        onClick={handleQuantityChange(id, cartProduct.quantity + 1)}
+        onClick={handleQuantityChange(id, quantity + 1)}
       >
         <Icon path={mdiPlus} size={1} />
       </button>
