@@ -1,0 +1,13 @@
+.cartButton {
+  background-color: rgb(var(--color-overlay) / 7%);
+  border: 1px solid rgb(var(--color-overlay) / 87%);
+}
+.cartButton:hover {
+  background-color: rgb(var(--color-overlay) / 11%);
+  border: 1px solid rgb(var(--color-overlay));
+}
+
+.quantityInput {
+  text-align: center;
+  width: 40px;
+}

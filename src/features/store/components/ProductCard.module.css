@@ -34,20 +34,6 @@
   gap: 5px;
 }
 
-.quantityInput {
-  text-align: center;
-  width: 40px;
-}
-
-.cartButton {
-  background-color: rgb(var(--color-overlay) / 7%);
-  border: 1px solid rgb(var(--color-overlay) / 87%);
-}
-.cartButton:hover {
-  background-color: rgb(var(--color-overlay) / 11%);
-  border: 1px solid rgb(var(--color-overlay));
-}
-
 .addCartButton {
   background-color: rgb(var(--color-primary));
   border: 1px solid transparent;
