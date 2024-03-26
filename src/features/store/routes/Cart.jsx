@@ -2,6 +2,7 @@ import { useCart } from "@/providers/CartProvider/CartContext";
 import { useProductsContext } from "@/providers/ProductProvider/ProductContext";
 
 import styles from "./Cart.module.css";
+import { QuantityButtons } from "../components/QuantityButtons";
 
 export const Cart = () => {
   const cart = useCart();
@@ -22,7 +23,7 @@ export const Cart = () => {
         />
         <div>
           <h1 className={styles.productName}>{product.title}</h1>
-          <div className="quantity">{item.quantity}</div>
+          <QuantityButtons quantity={item.quantity} id={product.id} />
         </div>
         <span className="price">${product.price}</span>
       </div>
